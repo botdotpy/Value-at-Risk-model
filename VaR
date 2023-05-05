@@ -21,3 +21,12 @@ MSFT_value = MSFT_units * close_price_MSFT #investment value dervied by multiply
 rfr_MSFT = 0.02 #four week US treasury bill rate as risk free rate
 
 vol_MSFT = 0.2116 #30 day MSFT volatitlity
+
+
+
+
+
+
+
+
+
