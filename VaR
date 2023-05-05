@@ -1,1 +1,23 @@
-This model seeks the value risk associated with investments. Serving as an actionable insight for investments.
+#importing packages required for the estimation
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import yfinance as yf
+%matplotlib inline
+
+
+MSFT_units = 1000 #number of MSFT shares to hold
+
+price = yf.Ticker('MSFT') #derives the live MSFT price from yahoo
+
+close_price_MSFT = price.history().tail(1)['Close'].iloc[0] #callin the history function on the live price
+#to derive the last closing price
+
+print("The most recent closing price for MSFT stock is: {}".format(close_price_MSFT)
+
+MSFT_value = MSFT_units * close_price_MSFT #investment value dervied by multiplying msft_units by the closing price of the stock
+
+rfr_MSFT = 0.02 #four week US treasury bill rate as risk free rate
+
+vol_MSFT = 0.2116 #30 day MSFT volatitlity
