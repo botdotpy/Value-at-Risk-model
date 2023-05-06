@@ -22,7 +22,15 @@ rfr_MSFT = 0.02 #four week US treasury bill rate as risk free rate
 
 vol_MSFT = 0.2116 #30 day MSFT volatitlity
 
+#defining variables required for var simulation to calculate associated risk for holding 1000 units of MSFT shares for a month
 
+simulations = 5000
+
+t_MSFT = 252 #number of trading dates in a month
+
+sample = np.random.standard_normal(simulations) #derives 252 random sample shaped by the number of simulations 
+
+plt.hist(sample, bins=100) #to visualize the random values created
 
 
 
