@@ -7,12 +7,11 @@ import yfinance as yf
 %matplotlib inline
 
 
-MSFT_units = 1000 #number of MSFT shares to hold
+MSFT_units = 1000 #units of MSFT shares to hold for a month
 
 price = yf.Ticker('MSFT') #derives the live MSFT price from yahoo
 
-close_price_MSFT = price.history().tail(1)['Close'].iloc[0] #callin the history function on the live price
-#to derive the last closing price
+close_price_MSFT = price.history().tail(1)['Close'].iloc[0] #calling the history function on the live price to derive the last closing price
 
 print("The most recent closing price for MSFT stock is: {}".format(close_price_MSFT)
 
@@ -28,12 +27,25 @@ simulations = 5000
 
 t_MSFT = 21/252 #number of trading dates in a month
 
-sample = np.random.standard_normal(simulations) #derives random samples shaped by the number of simulations 
+sample = np.random.standard_normal(simulations) #derives random numbers shaped by the number of simulations 
 
 plt.hist(sample, bins=100) #to visualize the random values created with a width of 100
 
 print('The sample mean is: {}".format(sample.mean()))
 print('The sample mean is: {}".format(sample.std()))
+
+#calculating VaR
+
+def VaR(pv, rfr, vol, t, simulations):
+  end_value = pv * np.exp((rfr - 0.5) * vol **2)* t + np.random.standard_normal(simulations) * vol * np.sqrt(t))
+  returns = end_value - pv
+  return returns
+
+#storing calculated VaR inside variable
+
+returns_MSFT = VaR(value_MSFT, rfr_MSFT, vol_MSFT, t_MSFT, simulations)
+
+
 
 
 
