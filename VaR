@@ -11,7 +11,7 @@ MSFT_units = 1000 #units of MSFT shares to hold for a month
 
 price = yf.Ticker('MSFT') #derives the live MSFT price from yahoo
 
-close_price_MSFT = price.history().tail(1)['Close'].iloc[0] #calling the history function on the live price to derive the last closing price
+close_price_MSFT = price.history().tail(1)['Close'].iloc[0] #calling the history method on the live price to derive the last closing price
 
 print("The most recent closing price for MSFT stock is: {}".format(close_price_MSFT)
 
@@ -45,12 +45,25 @@ def VaR(pv, rfr, vol, t, simulations):
 
 returns_MSFT = VaR(value_MSFT, rfr_MSFT, vol_MSFT, t_MSFT, simulations)
 
+#setting a confidence level to view VaR
 
+x = 0.9
+y = returns_MSFT[-1] #deriving the last returns MSFT value
 
+print("VaR at {:.0%} confidence level is: ${:,.0}".format(x,y))
 
+#plotting percentile values on histogram
 
+plt.hist(returns_MSFT, bins=100, color = 'orange')
 
+percentiles = [10,5,1]
 
+#looping through percentiles to derive confidence levels
 
-
-
+for i in percentiles:
+  confidence = (100-i)/100 #to return each confidence level as a percentage
+  value = np.percentile(returns_MSFT, i) #dervies and stores the VaR at each percentile 
+  print("VaR at {:.0%} confidence level is: ${:,.0}",format(confidence, value))
+  plt.axvline(value, color = 'red', linstyle = 'dashed', linewidth = 1) # the axvline method plots a dashed line on the percentile  returns_MSFT values derived
+  
+ 
